@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EU Environmental Laws Timeline</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .tooltip {
+      position: absolute;
+      text-align: left;
+      padding: 6px;
+      font-size: 12px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    circle.pending {
+      stroke: #ff9800;
+      stroke-width: 2;
+      fill: #ffeb3b;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%   { r: 8; opacity: 1; }
+      50%  { r: 10; opacity: 0.7; }
+      100% { r: 8; opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="timeline"></div>
+
+  <!-- D3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <script>
+    const data = [
+      { name: "Habitats Directive", date: "1992-05-21", type: "Directive", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A01992L0043-20130701" },
+      { name: "Water Framework Directive", date: "2000-10-23", type: "Directive", url: "https://eur-lex.europa.eu/eli/dir/2000/60/oj" },
+      { name: "Groundwater Directive", date: "2006-12-12", type: "Directive", url: "https://eur-lex.europa.eu/eli/dir/2006/118/oj/eng" },
+      { name: "EQS Directive", date: "2008-12-16", type: "Directive", url: "https://eur-lex.europa.eu/eli/dir/2008/105/2013-09-13" },
+      { name: "Birds Directive", date: "2009-11-30", type: "Directive", url: "https://eur-lex.europa.eu/eli/dir/2009/147/oj/eng" },
+      { name: "REACH Regulation", date: "2006-12-18", type: "Regulation", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02006R1907-20221217" },
+      { name: "Priority Substances Directive", date: "2013-08-12", type: "Directive", url: "https://eur-lex.europa.eu/eli/dir/2013/39/oj/eng" },
+      { name: "LULUCF Regulation", date: "2018-05-30", type: "Regulation", url: "https://eur-lex.europa.eu/eli/reg/2018/841/oj/eng" },
+      { name: "POPs Regulation", date: "2019-06-20", type: "Regulation", url: "https://eur-lex.europa.eu/eli/reg/2019/1021/oj/eng" },
+      { name: "EU Taxonomy Regulation", date: "2020-06-18", type: "Regulation", url: "https://eur-lex.europa.eu/eli/reg/2020/852/oj/eng" },
+      { name: "European Climate Law", date: "2021-06-30", type: "Regulation", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=legissum:4536626" },
+      { name: "CAP Strategic Plan Regulation", date: "2021-12-02", type: "Regulation", url: "https://eur-lex.europa.eu/eli/reg/2021/2115/oj/eng" },
+      { name: "Nature Restoration Regulation", date: "2024-06-24", type: "Regulation", url: "https://eur-lex.europa.eu/eli/reg/2024/1991/oj/eng" },
+      { name: "Soil Monitoring Directive", date: "2025-05-01", type: "Directive", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:52023PC0416" }
+    ];
+
+    const parseDate = d3.timeParse("%Y-%m-%d");
+    data.forEach(d => d.parsedDate = parseDate(d.date));
+
+    const margin = { top: 60, right: 20, bottom: 60, left: 40 },
+          width = 1000 - margin.left - margin.right,
+          height = 400;
+
+    const svg = d3.select("#timeline")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom);
+
+    const g = svg.append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    svg.append("text")
+      .attr("x", margin.left)
+      .attr("y", 30)
+      .text("EU Environmental Laws Timeline: Directives & Regulations")
+      .attr("font-size", "18px")
+      .attr("font-weight", "bold");
+
+    const x = d3.scaleTime()
+      .domain([new Date("1990-01-01"), new Date("2030-01-01")])
+      .range([0, width]);
+
+    g.append("g")
+      .attr("transform", `translate(0, ${height / 2})`)
+      .call(d3.axisBottom(x).ticks(d3.timeYear.every(2)).tickFormat(d3.timeFormat("%Y")));
+
+    const tooltip = d3.select("body").append("div").attr("class", "tooltip");
+
+    const labelOffsets = {
+      "European Climate Law": -184,
+      "EU Taxonomy Regulation": -105,
+      "POPs Regulation": -72,
+      "EQS Directive": 35,
+      "Birds Directive": 65,
+      "LULUCF Regulation": -35,
+      "CAP Strategic Plan Regulation": -150,
+      "Nature Restoration Regulation": -54
+    };
+
+    const positionOverrides = {
+      "EQS Directive":        { circleY: 65, labelY: 85 },
+      "Birds Directive":      { circleY: 95, labelY: 115 },
+      "European Climate Law": { circleY: -170, labelY: -40 },
+      "EU Taxonomy Regulation": { circleY: -90, labelY: -110 },
+      "POPs Regulation":        { circleY: -60, labelY: -70 },
+      "CAP Strategic Plan Regulation": { circleY: -135, labelY: -55 },
+      "LULUCF Regulation":         { circleY: -25, labelY: -85 }
+    };
+
+    const nodeGroups = g.selectAll(".node")
+      .data(data)
+      .enter()
+      .append("g")
+      .attr("class", "node")
+      .style("cursor", "pointer")
+      .on("click", (event, d) => window.open(d.url, "_blank"))
+      .on("mouseover", function (event, d) {
+        const cx = x(d.parsedDate);
+        const cy = +d3.select(this).select("circle").attr("cy");
+
+        g.insert("line", ".node")
+          .attr("class", "hover-line")
+          .attr("x1", cx)
+          .attr("x2", cx)
+          .attr("y1", cy)
+          .attr("y2", height / 2)
+          .attr("stroke", "#999")
+          .attr("stroke-dasharray", "4 2")
+          .attr("stroke-width", 1);
+
+        d3.select(this).select("circle")
+          .attr("stroke", "#000")
+          .attr("stroke-width", 3);
+
+        d3.select(this).select("text")
+          .attr("font-weight", "bold");
+
+        tooltip.transition().duration(200).style("opacity", 1);
+        tooltip.html(`<strong>${d.name}</strong><br>${d.date}<br><i>${d.type}</i>`)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (event, d) {
+        g.selectAll(".hover-line").remove();
+
+        d3.select(this).select("circle")
+          .attr("stroke", "#333")
+          .attr("stroke-width", 1);
+
+        d3.select(this).select("text")
+          .attr("font-weight", "normal");
+
+        tooltip.transition().duration(300).style("opacity", 0);
+      });
+
+    nodeGroups.append("circle")
+      .attr("id", d => "circle-" + d.name.replace(/\s+/g, "-"))
+      .attr("class", d => d.name === "Soil Monitoring Directive" ? "pending" : null)
+      .attr("cx", d => x(d.parsedDate))
+      .attr("cy", d => {
+        const override = positionOverrides[d.name];
+        if (override) return height / 2 + override.circleY;
+        return d.type === "Directive" ? height / 2 + 30 : height / 2 - 40;
+      })
+      .attr("r", 8)
+      .attr("fill", d => d.type === "Directive" ? "#ffeb3b" : "#2196f3")
+      .attr("stroke", "#333")
+      .attr("stroke-width", 1);
+
+    nodeGroups.append("text")
+      .attr("class", "label")
+      .attr("id", d => "label-" + d.name.replace(/\s+/g, "-"))
+      .attr("x", d => x(d.parsedDate))
+      .attr("y", d => {
+        if (labelOffsets[d.name] !== undefined) {
+          return height / 2 + (d.type === "Directive" ? 50 + labelOffsets[d.name] : labelOffsets[d.name]);
+        }
+        return d.type === "Directive" ? height / 2 + 50 : height / 2 - 60;
+      })
+      .attr("text-anchor", "middle")
+      .attr("font-size", "11px")
+      .attr("fill", "#444")
+      .text(d => d.name);
+
+    const legendData = [
+      { label: "Directive", color: "#ffeb3b", stroke: "#333" },
+      { label: "Pending Directive", color: "#ffeb3b", stroke: "#ff9800" },
+      { label: "Regulation", color: "#2196f3", stroke: "#333" }
+    ];
+
+    const legend = svg.append("g")
+      .attr("transform", `translate(${margin.left}, ${height + margin.top + 20})`);
+
+    legend.selectAll("circle")
+      .data(legendData)
+      .enter()
+      .append("circle")
+      .attr("cx", (d, i) => i * 220)
+      .attr("cy", 0)
+      .attr("r", 8)
+      .attr("fill", d => d.color)
+      .attr("stroke", d => d.stroke)
+      .attr("stroke-width", 1.5);
+
+    legend.selectAll("text")
+      .data(legendData)
+      .enter()
+      .append("text")
+      .attr("x", (d, i) => i * 220 + 14)
+      .attr("y", 4)
+      .text(d => d.label)
+      .attr("font-size", "12px")
+      .attr("fill", "#333");
+  </script>
+</body>
+</html>
