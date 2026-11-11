@@ -1,4 +1,22 @@
 <!doctype html>
+<!-- update to redirect 11/11/2026 -->
+<script>
+  const communityStore =
+    "https://community-store.rurbanive-project.eu/";
+
+  const destination =
+    communityStore +
+    "rural-urban-enablers-overview-page/" +
+    "ecosystem-and-biodiversity-restoration/";
+
+  if (
+    window.top === window.self &&
+    !document.referrer.startsWith(communityStore)
+  ) {
+    window.location.replace(destination);
+  }
+</script>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
