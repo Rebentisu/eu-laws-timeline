@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RURBANIVE guide to EU environmental law, verified Greek legal measures and practical relevance to ecological restoration.">
+  <meta name="theme-color" content="#285848">
+  <title>EU & Greek Environmental Legislation | RURBANIVE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav id="menu" class="site-menu" aria-label="Project navigation">
+    <button id="menu-toggle" class="hamburger" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="menu-content"><span></span><span></span><span></span></button>
+    <div id="menu-content" class="menu-content">
+      <a class="brand" href="https://rurbanive-project.eu/" target="_blank" rel="noopener noreferrer"><img src="https://zenodo.org/records/18361008/files/RURBANIVE_stroke.png?download=1" alt="RURBANIVE project" loading="lazy"></a>
+      <p class="nav-label">RURBANIVE • Milos</p>
+      <a href="/index.html">Home</a><a href="/plant-database.html">Plant Database</a><a href="/restoration-protocols.html">Restoration Protocols</a><a class="current" aria-current="page" href="/legislation.html">Legislation</a><a href="/about.html">About</a>
+    </div>
+    <svg id="blob" viewBox="0 0 60 1000" preserveAspectRatio="none" aria-hidden="true"><path id="blob-path" d=""></path></svg>
+  </nav>
+
+  <main id="main" class="page">
+    <div class="eyebrow">RURBANIVE • Milos ecosystem & biodiversity restoration</div>
+    <header class="hero">
+      <div class="hero-content">
+        <p class="kicker">Policy & restoration guidance</p>
+        <h1>EU Environmental Laws <em>Timeline</em></h1>
+        <p class="hero-description">Explore how European environmental legislation supports ecosystem restoration, biodiversity conservation and sustainable land management, including connections to national legislation.</p>
+        <div class="statline"><span><b id="count">15</b> EU legal acts</span><span>EU ↔ Greece</span></div>
+      </div>
+      <div class="intro-aside">
+        <span class="aside-kicker">How to use</span>
+        <strong>Select any circle or law card</strong>
+        <p>Read a clear overview of each law, explore relevant national measures and understand its significance for ecosystem restoration.</p>
+        <button id="explain-trigger" class="text-button" type="button">Directives vs Regulations <span aria-hidden="true">↗</span></button>
+      </div>
+    </header>
+
+    <section class="overview" aria-label="Legislation filters">
+      <div class="section-heading"><div><span class="section-no">01 / EXPLORE</span><h2>Legal timeline</h2></div><p>Circles show the adoption dates of European laws. Yellow: Directive. Blue: Regulation.</p></div>
+      <div class="filters">
+        <label class="searchbox" for="search-input"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search a law, EU number, Greek measure…" autocomplete="off"></label>
+        <div class="type-toggle" role="group" aria-label="Filter by EU act type"><button class="active" data-type="All" aria-pressed="true">All</button><button data-type="Directive" aria-pressed="false">Directives</button><button data-type="Regulation" aria-pressed="false">Regulations</button></div>
+        <label for="topic-select" class="visually-hidden">Filter by topic</label><select id="topic-select"><option value="All">All topics</option><option value="Biodiversity">Biodiversity</option><option value="Water">Water</option><option value="Soil">Soil</option><option value="Climate">Climate</option><option value="Chemicals">Chemicals</option><option value="Agriculture">Agriculture</option><option value="Finance">Finance</option></select>
+      </div>
+      <div class="visual-key"><span><i class="dot directive-dot"></i> Directive — national transposition generally required</span><span><i class="dot regulation-dot"></i> Regulation — directly applicable</span><span class="hint">← Scroll horizontally on narrow screens →</span></div>
+      <div class="timeline-viewport" id="timeline-viewport"><div id="timeline" aria-label="EU law timeline, from 1992 to 2026"></div></div>
+      <p class="timeline-caption">The circles indicate the original adoption dates. Some acts have since been amended. Use the links inside each entry for official and updated texts.</p>
+    </section>
+
+    <section class="directory" id="directory">
+      <div class="section-heading"><div><span class="section-no">02 / BROWSE</span><h2>Explore each law</h2></div><p id="results-label" aria-live="polite">15 legal acts</p></div>
+      <div class="law-grid" id="law-grid"></div>
+      <p id="empty-message" class="empty" hidden>No laws match these filters. Try a broader search.</p>
+    </section>
+
+    <section class="greek-focus" id="greek-focus">
+      <div class="section-heading"><div><span class="section-no">03 / GREEK FRAMEWORK</span><h2>What matters on a quarry site?</h2></div></div>
+      <div class="greek-cards">
+        <article><span>01</span><h3>Law 4512/2018</h3><p>Greek quarry legislation, including the broader regulatory basis for quarry operations.</p><a href="https://ypen.gov.gr/energeia/oryktes-protes-yles/latomeia/nomothesia/" target="_blank" rel="noopener noreferrer">Ministry's quarry legislation ↗</a></article>
+        <article><span>02</span><h3>Quarry Operations Regulation</h3><p>Ministerial Decision Δ7/Α/οικ.12050/2223 (FEK B 1227/2011). Review the relevant operational and rehabilitation provisions.</p><a href="https://ypen.gov.gr/energeia/oryktes-protes-yles/latomeia/nomothesia/" target="_blank" rel="noopener noreferrer">Ministry's legislation list ↗</a></article>
+        <article><span>03</span><h3>Law 4014/2011</h3><p>Environmental licensing framework for projects, including extractive activities; check the actual approval and subsequent amendments.</p><a href="https://ypen.gov.gr/perivallon/perivallontiki-adeiodotisi/perivallontiki-adeiodotisi-ergon/" target="_blank" rel="noopener noreferrer">Environmental licensing ↗</a></article>
+        <article><span>04</span><h3>Law 3937/2011</h3><p>National biodiversity framework, alongside Natura 2000 conservation rules and site-specific protection decisions.</p><a href="https://ypen.gov.gr/perivallon/viopoikilotita/nomothesia/" target="_blank" rel="noopener noreferrer">Biodiversity legislation ↗</a></article>
+        <article><span>05</span><h3>Law 4442/2016</h3><p>Regulates the notification and approval framework for quarry activities (notably Chapter XII, Articles 57–67, as amended).</p><a href="https://ypen.gov.gr/energeia/oryktes-protes-yles/latomeia/adeiodotisi/" target="_blank" rel="noopener noreferrer">Ministry's quarry licensing guidance ↗</a></article>
+        <article><span>06</span><h3>KYA 39624/2209/E103/2009</h3><p>Extractive-waste management requirements, including waste management plans and measures relevant to quarry spoil and closure (FEK B 2076/2009).</p><a href="https://ypen.gov.gr/diacheirisi-apovliton/sterea-apovlita/exoryktika-apovlita/" target="_blank" rel="noopener noreferrer">Ministry's extractive waste framework ↗</a></article>
+        <article><span>07</span><h3>Law 998/1979</h3><p>Protection of forests and forest lands. Article 57 and subsequent amendments are relevant where extraction or rehabilitation affects land subject to forest legislation.</p><a href="https://ypen.gov.gr/perivallon/dasi/nomothesia/" target="_blank" rel="noopener noreferrer">Ministry's forest legislation ↗</a></article>
+        <article><span>08</span><h3>Presidential Decree 148/2009</h3><p>Environmental liability framework for preventing and remedying qualifying environmental damage; transposes Directive 2004/35/EC (FEK A 190/2009).</p><a href="https://ypen.gov.gr/wp-content/uploads/legacy/Files/Epitheorisi/Perivallontiki%20Efthini/Nomiko%20Plaisio/04_egyklios65_2011.pdf" target="_blank" rel="noopener noreferrer">Ministry's implementation circular ↗</a></article>
+        <article><span>09</span><h3>KYA Δ10/Φ68/οικ.4437/2001</h3><p>Specifications and timetable for a special quarry restoration study in the circumstances covered by the decision (FEK B 244/2001), as subsequently amended.</p><a href="https://www.nomoskopio.gr/a_d10-f68-4437_01.php" target="_blank" rel="noopener noreferrer">Restoration study decision ↗</a></article>
+      </div>
+    </section>
+
+    <footer class="footer"><p>AUA & IMERYS • RURBANIVE Milos RUE</p></footer>
+  </main>
+
+  <div id="dialog-overlay" class="dialog-overlay" hidden></div>
+  <section id="law-dialog" class="law-dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" hidden>
+    <div class="dialog-header"><div><p class="dialog-eyebrow" id="dialog-eyebrow">EU environmental law</p><h2 id="dialog-title"></h2><p class="dialog-meta" id="dialog-meta"></p></div><button type="button" id="dialog-close" aria-label="Close details" class="close-button">×</button></div>
+    <div class="dialog-body" id="dialog-body"></div>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
