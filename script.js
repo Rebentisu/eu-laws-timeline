@@ -483,6 +483,32 @@ function openExplainer(){
   const source=htmlEl('p','source-line','Reference: ');source.append(anchor('European Union — Types of legislation ↗','https://european-union.europa.eu/institutions-law-budget/law/types-legislation_en'));
   body.append(source);openBase();
 }
+/* License & Credits is displayed in the existing accessible dialog.
+   The Community Store licence is referenced, without claiming that every
+   third-party photograph, legal text, or dataset uses the same licence. */
+function openLicense(){
+  $('#dialog-eyebrow').textContent='RURBANIVE • Milos';
+  $('#dialog-title').textContent='License & Credits';
+  $('#dialog-meta').textContent='EU Environmental Legislation Timeline';
+  body.replaceChildren();
+  const credits=htmlEl('div');
+  credits.append(paragraph('Project: RURBANIVE – Milos Ecosystem and Biodiversity Restoration.'));
+  credits.append(paragraph('Responsible partners: Agricultural University of Athens (AUA) and IMERYS.'));
+  body.append(section('01','Project & credits',credits));
+
+  const licence=htmlEl('div');
+  licence.append(paragraph('The Milos RUE entry in the RURBANIVE Community Store lists Creative Commons Attribution–NonCommercial–ShareAlike 4.0 (CC BY-NC-SA 4.0). Individual third-party sources and materials may be subject to separate rights, licensing, and attribution requirements.'));
+  licence.append(anchor('View CC BY-NC-SA 4.0 licence ↗','https://creativecommons.org/licenses/by-nc-sa/4.0/'));
+  body.append(section('02','Licence information',licence));
+
+  const details=htmlEl('div');
+  details.append(paragraph('EU legal instruments and Greek national legal measures are linked to their official or identified sources in the individual law entries. Refer to those sources for authoritative, current legal texts.'));
+  details.append(anchor('View Milos RUE on the Community Store ↗','https://community-store.rurbanive-project.eu/rural-urban-enablers-overview-page/ecosystem-and-biodiversity-restoration/'));
+  body.append(section('03','Sources & Community Store',details));
+  openBase();
+}
+$('#license-trigger').addEventListener('click',openLicense);
+
 $('#dialog-close').addEventListener('click',closeModal);overlay.addEventListener('click',closeModal);$('#explain-trigger').addEventListener('click',openExplainer);
 document.addEventListener('keydown',e=>{
   if(dialog.hidden)return;
@@ -493,11 +519,5 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-/* Original side-panel concept, with mouse-following blob on wide screens. */
-const menu=$('#menu'),menuBtn=$('#menu-toggle'),blobPath=$('#blob-path');let expanded=false,targetY=500,smoothY=500;
-function setMenu(open){expanded=open;menu.classList.toggle('expanded',open);menuBtn.setAttribute('aria-expanded',String(open));menuBtn.setAttribute('aria-label',open?'Close navigation':'Open navigation')}
-menuBtn.addEventListener('click',()=>setMenu(!expanded));menu.addEventListener('mouseenter',()=>{if(innerWidth>760)setMenu(true)});menu.addEventListener('mouseleave',()=>{if(innerWidth>760)setMenu(false)});
-document.addEventListener('pointerdown',e=>{if(!menu.contains(e.target))setMenu(false)});
-document.addEventListener('pointermove',e=>{targetY=Math.min(Math.max(e.clientY/window.innerHeight*1000,100),900)});
-function updateBlob(){if(innerWidth>760){smoothY+=.13*(targetY-smoothY);let y=smoothY;blobPath.setAttribute('d',`M60,1000 H0 V0 H60 V${y-110} C60,${y-50} 24,${y-45} 20,${y} S60,${y+80} 60,${y+110} V1000 Z`);menuBtn.style.top=`${(y/1000)*innerHeight-21}px`;}else{menuBtn.style.removeProperty('top')};requestAnimationFrame(updateBlob)}updateBlob();
+
 render();
