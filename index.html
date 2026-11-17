@@ -28,15 +28,6 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <nav id="menu" class="site-menu" aria-label="Project navigation">
-    <button id="menu-toggle" class="hamburger" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="menu-content"><span></span><span></span><span></span></button>
-    <div id="menu-content" class="menu-content">
-      <a class="brand" href="https://rurbanive-project.eu/" target="_blank" rel="noopener noreferrer"><img src="https://zenodo.org/records/18361008/files/RURBANIVE_stroke.png?download=1" alt="RURBANIVE project" loading="lazy"></a>
-      <p class="nav-label">RURBANIVE • Milos</p>
-      <a href="/index.html">Home</a><a href="/plant-database.html">Plant Database</a><a href="/restoration-protocols.html">Restoration Protocols</a><a class="current" aria-current="page" href="/legislation.html">Legislation</a><a href="/about.html">About</a>
-    </div>
-    <svg id="blob" viewBox="0 0 60 1000" preserveAspectRatio="none" aria-hidden="true"><path id="blob-path" d=""></path></svg>
-  </nav>
 
   <main id="main" class="page">
     <div class="eyebrow">RURBANIVE • Milos ecosystem & biodiversity restoration</div>
@@ -88,7 +79,11 @@
       </div>
     </section>
 
-    <footer class="footer"><p>AUA & IMERYS • RURBANIVE Milos RUE</p></footer>
+    <footer class="footer">
+      <p>AUA &amp; IMERYS • RURBANIVE Milos RUE</p>
+      <button id="license-trigger" class="footer-license" type="button"
+              aria-haspopup="dialog" aria-controls="law-dialog">License &amp; Credits</button>
+    </footer>
   </main>
 
   <div id="dialog-overlay" class="dialog-overlay" hidden></div>
